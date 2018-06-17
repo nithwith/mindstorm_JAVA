@@ -1,6 +1,7 @@
 package main.java.service;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -42,16 +43,20 @@ public class SysControlDLC {
 		this.interStop = new Interrupteur(p3);
 	}
 	
-	public void startSystem() {
-		if(this.capteurMouvement.detectionMouv())
-			LCD.drawString(Float.toString(this.capteurLumiere.detectionLum()), 0, 0);
+	public void startSystem() throws IOException, InterruptedException {
+		this.startConnectionBT();
+		while(true) {
+			if(this.capteurMouvement.detectionMouv()) {
+				LCD.drawString(Float.toString(this.capteurLumiere.detectionLum()), 0, 0);
+			}		
+		}
 	}
 	
 	public void allumerLumiere() {
 		this.listeSimulateurDeLumiere.get(0).allumer();
 	}
 	
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
     	SysControlDLC sys = new SysControlDLC();
     	sys.startSystem();
     }
@@ -78,16 +83,27 @@ public class SysControlDLC {
 
 		  // The InputStream for read data 
 		  DataInputStream dis = btc.openDataInputStream();
-		  
+		  //DataOutputStream out = btc.openDataOutputStream();
+		  LCD.clear();
+		  LCD.drawString("test", 1, 1);
+		  LCD.refresh(); 
+		LCD.clear(); 
 		// Loop for read data  
 		  while (isrunning) {
-		    byte n = dis.readByte();
-		    LCD.clear();
-		    LCD.drawInt(n, 4, 4);
+	
+		    String n = dis.readUTF();
+			  //byte n[] = dis.readByte();
+ 
+		    LCD.drawString(n, 4, 4);
+
+		  //  LCD.drawInt(n, 1, 1);
+			//out.writeUTF("coucou théo");;
+			//out.flush();
+			LCD.refresh();
 		  }
-
+	
 		  dis.close();
-
+		  //out.close();
 		  // Wait for data to drain
 			Thread.sleep(100);
 

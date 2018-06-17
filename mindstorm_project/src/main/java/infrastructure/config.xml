@@ -1,0 +1,12 @@
+<DataPersist>
+	<list-users>
+		<user id-u="1" isAdmin="true" login="admin" motDePasse="123"></user></list-users><config-courante nom="conf1" lumiereList="lum1" id-config="1"></config-courante>
+	<list-config-admin>
+		<config-admin id-config="1" nom="conf1" isStandard="true" lumiereList="lum1"></config-admin>
+		</list-config-admin>
+	<list-lumiere>
+		<lumiere id-lumiere="1" idAdminLock="1" typeLumiere="lumiere" isAllume="false" intensite="0"></lumiere></list-lumiere>
+	<list-temporalite>
+		<T id-temporalite="2" valeur="7" nom="T2"></T>
+		<T id-temporalite="1" nom="T1" valeur="7"></T>
+		<T id-temporalite="3" nom="T3" valeur="7"></T></list-temporalite></DataPersist>
