@@ -1,12 +1,13 @@
+<?xml version="1.0"?>
 <DataPersist>
+	<config-courante id-config="1" lumiereList="lum2" nom="1"/>
 	<list-users>
-		<user id-u="1" isAdmin="true" login="admin" motDePasse="123"></user></list-users><config-courante nom="conf1" lumiereList="lum1" id-config="1"></config-courante>
-	<list-config-admin>
-		<config-admin id-config="1" nom="conf1" isStandard="true" lumiereList="lum1"></config-admin>
+		<user id-u="1" isAdmin="true" login="admin" motDePasse="123"/></list-users><list-config-admin>
+		<config-admin id-config="1" isStandard="true" lumiereList="lum1" nom="conf1"/>
 		</list-config-admin>
 	<list-lumiere>
-		<lumiere id-lumiere="1" idAdminLock="1" typeLumiere="lumiere" isAllume="false" intensite="0"></lumiere></list-lumiere>
+		<lumiere id-lumiere="1" idAdminLock="1" intensite="0" isAllume="false" typeLumiere="lumiere"/></list-lumiere>
 	<list-temporalite>
-		<T id-temporalite="2" valeur="7" nom="T2"></T>
-		<T id-temporalite="1" nom="T1" valeur="7"></T>
-		<T id-temporalite="3" nom="T3" valeur="7"></T></list-temporalite></DataPersist>
+		<T id-temporalite="2" nom="T2" valeur="7"/>
+		<T id-temporalite="1" nom="T1" valeur="2"/>
+		<T id-temporalite="3" nom="T3" valeur="7"/></list-temporalite></DataPersist>
