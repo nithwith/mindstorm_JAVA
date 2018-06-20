@@ -26,7 +26,6 @@ public class SysControlDLC {
 	private String T1;
 	private String T2;
 	private String T3;
-	private ArrayList<SimulateurLum> listeSimulateurDeLumiere;
 	private CaptMouv capteurMouvement;
 	private CaptLum capteurLumiere;
 	private Minuteur minuteur;
@@ -60,191 +59,15 @@ public class SysControlDLC {
 		this.startConnectionBT(); //+comportement de la brique(message reçu)
 	}
 	
-	public void allumerLumiere() {
+	/*public void allumerLumiere() {
 		this.listeSimulateurDeLumiere.get(0).allumer();
 	}
-	
+	*/
     public static void main(String[] args) throws Exception {
     	SysControlDLC sys = new SysControlDLC();
     	sys.startSystem();
     }
     
-	public void startConnectionBTDepressiated() throws Exception {
-		boolean isrunning = true;
-
-		// Main loop   
-		while (true)
-		{
-		  LCD.drawString("waiting",0,0);
-		  LCD.refresh();
-
-		  // Listen for incoming connection
-
-		  NXTConnection btc = Bluetooth.waitForConnection();
-
-		  btc.setIOMode(NXTConnection.RAW);
-
-		  LCD.clear();
-		  LCD.drawString("connected",0,0);
-		  LCD.refresh();  
-
-
-		  // The InputStream for read data 
-		  DataInputStream dis = btc.openDataInputStream();
-		  DataOutputStream out = btc.openDataOutputStream();
-		  
-		// Loop for read data  
-		  while (isrunning) {
-	
-		    String msg = dis.readUTF();
-			  //byte msg[] = dis.readByte();
- 
-		    LCD.drawString(msg, 4, 4);
-			
-			//quelqu'un rentre dans la piece ?
-			if(this.capteurMouvement.detectionMouv()) {
-				LCD.drawString(Float.toString(this.capteurLumiere.detectionLum()), 0, 0);
-			}		
-			/*TODO : Evenement en fonction du message reçu (msg)
-			//modif T1 : exemple de condition par msg reçu
-			if(msg.indexOf("setT1") > -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//créer l'objet en question (ici juste une valeur pour T)
-				// ajouter/modifier le xml : (il faut voir les méthodes dans XMLParser )
-				this.xml.save(); //ecriture de la modification dans le xml
-			}	
-			//modif T2
-			if(msg.indexOf("setT2")> -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//créer l'objet en question 
-				// ajouter/modifier le xml : (il faut voir les méthodes dans XMLParser )
-				this.xml.save(); //ecriture de la modification dans le xml
-			}
-			//modif T3
-			if(msg.indexOf("setT3")> -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//créer l'objet en question 
-				// ajouter/modifier le xml : (il faut voir les méthodes dans XMLParser )
-				this.xml.save(); //ecriture de la modification dans le xml
-			}
-			//modif ConfigStandard
-			if(msg.indexOf("setConfigStandard") > -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//créer l'objet en question 
-				// ajouter/modifier le xml : (il faut voir les méthodes dans XMLParser )
-				this.xml.save(); //ecriture de la modification dans le xml
-			}
-			//modif ConfigCourante
-			if(msg.indexOf("setConfigCour") > -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//créer l'objet en question 
-				// ajouter/modifier le xml : (il faut voir les méthodes dans XMLParser )
-				this.xml.save(); //ecriture de la modification dans le xml
-			}
-			//envoyer T1 au smartphone
-			if(msg.indexOf("sendT1") > -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//récupérer l'objet en question à l'aide du parser
-				//out.writeUTF(); envoie de l'objet (faire une string du type <object/action>;<attribut1>;...;<attributN> :  T1;4 ou ConfigStandard;1;conf1;lum1)
-				out.flush();
-			}
-			//envoyer T2 au smartphone
-			if(msg.indexOf("sendT2") > -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//récupérer l'objet en question à l'aide du parser
-				//out.writeUTF(); envoie de l'objet (faire une string du type <object/action>;<attribut1>;...;<attributN> :  T1;4 ou ConfigStandard;1;conf1;lum1)
-				out.flush();
-			}
-			
-			//envoyer T3 au smartphone
-			if(msg.indexOf("sendT3") > -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//récupérer l'objet en question à l'aide du parser
-				//out.writeUTF(); envoie de l'objet (faire une string du type <object/action>;<attribut1>;...;<attributN> :  T1;4 ou ConfigStandard;1;conf1;lum1)
-				out.flush();
-			}
-			//envoyer ConfigStandard au smartphone
-			if(msg.indexOf("sendConfigStandard") > -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//récupérer l'objet en question à l'aide du parser
-				//out.writeUTF(); envoie de l'objet (faire une string du type <object/action>;<attribut1>;...;<attributN> :  T1;4 ou ConfigStandard;1;conf1;lum1)
-				out.flush();
-			}
-			//envoyer ConfigCourante au smartphone
-			if(msg.indexOf("sendConfigCourante") > -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//récupérer l'objet en question à l'aide du parser
-				//out.writeUTF(); envoie de l'objet (faire une string du type <object/action>;<attribut1>;...;<attributN> :  T1;4 ou ConfigStandard;1;conf1;lum1)
-				out.flush();
-			}
-			//envoyer toute les configAdmin(=configStandard avec isStandard= false) au smartphone
-			if(msg.indexOf("sendAllConf") > -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//récupérer l'objet en question à l'aide du parser
-				//out.writeUTF(); envoie de l'objet (faire une string du type <object/action>;<attribut1>;...;<attributN> :  T1;4 ou ConfigStandard;1;conf1;lum1)
-				out.flush();
-			}
-			//envoyer toute les lumieres au smartphone
-			if(msg.indexOf("sendAllLum") > -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//récupérer l'objet en question à l'aide du parser
-				//out.writeUTF(); envoie de l'objet (faire une string du type <object/action>;<attribut1>;...;<attributN> :  T1;4 ou ConfigStandard;1;conf1;lum1) 
-				// POUR TOUTES LES LUMIERES FAIRE ATTENTION A LA LONGUEUR DE CHAINE, peut être ne renvoyer que les 3 premières ?
-				out.flush();
-			}
-			//allumer une lumiere
-			if(msg.indexOf("on") > -1) {
-				//découper le msg : faire regex pour découper la string par ";", du type "on;l" pour allumer lumoière ayant id=1
-			}
-			//ajouter une lumiere à une configuration
-			if(msg.indexOf("addLumToConf") > -1) {
-				//découper le msg : faire regex pour découper la string par ";" ==> "addLumToConf;<lum>;<conf>"
-				//ajouter l'objet en question à l'aide du parser
-			}
-			//ajouter une lumière au systeme
-			if(msg.indexOf("addLum") > -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//ajouter l'objet en question à l'aide du parser
-			}
-			//ajouter une configuration Admin (la confAdmin est une configStandard avec isStandard= false)
-			if(msg.indexOf("addConf") > -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//ajouter l'objet en question à l'aide du parser
-			}
-			//supprimer une lumière au systeme
-			if(msg.indexOf("deleteLum") > -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//ajouter l'objet en question à l'aide du parser
-			}
-			//ajouter une configuration Admin (la confAdmin est une configStandard avec isStandard= false)
-			if(msg.indexOf("deleteConf")> -1) {
-				//découper le msg : faire regex pour découper la string par ";"
-				//ajouter l'objet en question à l'aide du parser
-			}
-			//Evenement extinction de la brique : pression sur interrupteur du port 3 de la brique
-			if(this.interStop.pushed()) {
-				isrunning = false;
-			}
-			/*FIN TODO*/
-			LCD.refresh();
-		  }
-	
-		  dis.close();
-		  out.close();
-		  // Wait for data to drain
-			Thread.sleep(100);
-
-
-		  LCD.clear();
-		  LCD.drawString("closing",0,0);
-		  LCD.refresh();
-
-		  btc.close();
-
-		  LCD.clear();
-		}
-	}
-	
 	
 		public void startConnectionBT() throws Exception {
 		boolean isrunning = true;
@@ -294,7 +117,7 @@ public class SysControlDLC {
 				}
 				LCD.drawString(Float.toString(this.capteurLumiere.detectionLum()), 0, 0);
 			}		
-			/*TODO : Evenement en fonction du message reçu (msg)
+			//TODO : Evenement en fonction du message reçu (msg)
 			//modif T1 : exemple de condition par msg reçu
 			if(msg.indexOf("/sync")> -1) {
 				String msg_out1 = this.creerMsgSync();
