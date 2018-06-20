@@ -1,7 +1,7 @@
 package main.java.domain.LumierePackage;
 
 public class SimulateurLum {
-	
+
 	private String id;
 	private String type;
 	private String isAllume;
@@ -17,8 +17,7 @@ public class SimulateurLum {
 	
 	@Override
 	public String toString() {
-		return "SimulateurLum [id=" + id + ", type=" + type + ", isAllume=" + isAllume + ", intensite=" + intensite
-				+ "]";
+		return id + ";" + type + ";" + isAllume + ";" + intensite;
 	}
 
 	public String getId() {
@@ -53,5 +52,4 @@ public class SimulateurLum {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

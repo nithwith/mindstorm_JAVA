@@ -44,10 +44,8 @@ public class ConfigStandard {
 	public ConfigCour transformIntoConfigCour(){
 		return new ConfigCour(this.id_config, this.nom, this.lumiereList);
 	}
-
-	@Override
-	public String toString() {
-		return "ConfigStandard [id_config=" + id_config + ", nom=" + nom + ", lumiereList=" + lumiereList
-				+ ", isStandard=" + isStandard + "]";
+	
+	public String toString(){
+		return this.id_config+";" +this.nom+";"+ this.lumiereList+";"+this.isStandard;
 	}
 }

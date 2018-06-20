@@ -5,6 +5,7 @@ import main.java.domain.LumierePackage.*;
 
 public class ConfigCour {
 
+
 	private String id_config;
 	private String nom;
 	private String lumiereList;
@@ -26,7 +27,7 @@ public class ConfigCour {
 	}
 	@Override
 	public String toString() {
-		return "ConfigCour [id_config=" + id_config + ", nom=" + nom + ", lumiereList=" + lumiereList + "]";
+		return id_config + ";" + nom + ";" + lumiereList;
 	}
 
 	public String getNom() {

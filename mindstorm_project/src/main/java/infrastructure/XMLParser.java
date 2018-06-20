@@ -20,11 +20,11 @@ import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 import main.java.domain.LumierePackage.SimulateurLum;
 import main.java.domain.UserPackage.User;
+import main.java.service.SysControlDLC;
 
 
 
 public class XMLParser {
-	
 	private org.w3c.dom.Document doc;
 	private NodeIterator noeud;
 	
@@ -481,7 +481,7 @@ public class XMLParser {
 	}
 	
 	//set : la lumiere existe dejà
-	public void setLumere(SimulateurLum l){
+	public void setLumiere(SimulateurLum l){
 		 NodeList nList = doc.getElementsByTagName("lumiere"); 
 
         int i = 0; 
@@ -598,11 +598,33 @@ public class XMLParser {
 		
     	//System.out.println(xml.getAdmin().toString());
     	xml.setAdmin(new User("2","true","admin","123"));
-		System.out.println(xml.getAdmin().toString());
+		System.out.println(xml.createMSG());
 		
-    	xml.save(); // a faire après chaque changement 
+    	xml.save(); // a faire après chaque changement
+    	
     	 
-    } 
+    }
+
+	public String createMSG() {
+		String result = "";
+		result += "/T1;"+this.getT1()+";";
+		result += "/T2;"+this.getT2()+";";
+		result += "/T3;"+this.getT3()+";";
+		ArrayList <SimulateurLum> simlumList = this.getAllLumiere();
+		for(int i=0; i<simlumList.size();i++){ //ou limite Lumiere Max à envoyé à la place de tout l'ArrayList
+			SimulateurLum simlum = simlumList.get(i);
+			result += "/Lum;"+simlum.toString()+";";
+		}
+		result += "/ConfStandard;"+this.getconfStandard().toString()+";";
+		result += "/ConfCour;"+this.getconfCourante().toString()+";";
+		
+		ArrayList <ConfigStandard> confList = this.getAllconfAdmin();
+		for(int i=0; i<confList.size();i++){ //ou limite Lumiere Max à envoyé à la place de tout l'ArrayList
+			ConfigStandard conf_tmp = confList.get(i);
+			result += "/Conf;"+conf_tmp.toString()+";";
+		}
+		return result;
+	} 
 	
 	
 	
