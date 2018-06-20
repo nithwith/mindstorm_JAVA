@@ -4,7 +4,7 @@
 	<list-users>
 		<user id-u="2" isAdmin="true" login="admin" motDePasse="true"/></list-users><list-config-admin>
 		<config-admin id-config="1" isStandard="false" lumiereList="lum1" nom="conf1"/>
-		<config-admin id-config="2" isStandard="true" lumiereList="lum25" nom="conf3"/><config-admin id-config="3" isStandard="false" lumiereList="lum2" nom="conf3"/></list-config-admin>
+		<config-admin id-config="2" isStandard="true" lumiereList="lum25" nom="conf3"/><config-admin id-config="3" isStandard="false" lumiereList="lum2" nom="conf3"/><config-admin id-config="4" isStandard="false" lumiereList="lum2" nom="conf4"/><config-admin id-config="4" isStandard="false" lumiereList="lum2" nom="conf4"/></list-config-admin>
 	<list-lumiere>
 		<lumiere id-lumiere="1" idAdminLock="1" intensite="0" isAllume="false" typeLumiere="lumiere"/><lumiere id-lumiere="6" idAdminLock="1" intensite="0" isAllume="true" typeLumiere="plafonnier"/></list-lumiere>
 	<list-temporalite>

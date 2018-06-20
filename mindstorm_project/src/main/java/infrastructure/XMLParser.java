@@ -587,7 +587,7 @@ public class XMLParser {
     	//xml.setconfCourante(new ConfigCour("1","conf40","lum2")); 
 		//xml.addconfAdmin(new ConfigStandard("2","conf3","lum2", "false"));
 		//xml.setconfStandard(new ConfigStandard("2","conf3","lum2","")); 
-		//xml.addconfAdmin(new ConfigStandard("3","conf3","lum2", "false"));
+		xml.addconfAdmin(new ConfigStandard("4","conf4","lum2", "false"));
 		//xml.deleteconfAdmin(xml.getConfAdmin(new ConfigStandard("3","conf3","lum2", "false")).getId_config());
     	//System.out.println(xml.getAllconfAdmin().toString());
 		
